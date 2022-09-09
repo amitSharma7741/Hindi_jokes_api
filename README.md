@@ -8,10 +8,10 @@
 
 #### Get all items
 
-```http
+```
   GET /jokes
 ```
-```http
+```
   https://hindi-jokes-api.onrender.com
 ```
 ***
