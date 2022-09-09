@@ -42,7 +42,7 @@ router.get('/jokes', (req, res) => {
 }
 );
 
-router.post('/jokes', async (req, res) => {
+/* router.post('/jokes', async (req, res) => {
     const { jokeContent } = req.body;
 
     const val = await Data.find();
@@ -68,7 +68,7 @@ router.post('/jokes', async (req, res) => {
     } catch (error) {
         res.status(400).send(error);
     }
-});
+}); */
 
 
 
