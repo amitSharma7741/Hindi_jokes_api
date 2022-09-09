@@ -12,7 +12,7 @@
   GET /jokes
 ```
 ```http
-  API URL 
+  https://hindi-jokes-api.onrender.com
 ```
 ***
 **No api_key needed free forever**  
@@ -28,7 +28,7 @@
 
 ## 🔗 API
 
-[Api Url](https://katherinempeterson.com/)
+[Api Url](https://hindi-jokes-api.onrender.com/jokes)
  
 
 ## Usage/Examples
@@ -37,7 +37,7 @@
 ```javascript
  
 const fetchData = async () => {
-    const url = ""
+    const url = "https://hindi-jokes-api.onrender.com/jokes"
     const response = await fetch(url);
     const data = await response.json();
     console.log(data)
@@ -54,7 +54,7 @@ npm i axios
 // use axios 
  
 const sendGetRequest = async () => {
-    const url = ""
+    const url = "https://hindi-jokes-api.onrender.com/jokes"
     try {
         const resp = await axios.get(url);
         console.log(resp.data);
