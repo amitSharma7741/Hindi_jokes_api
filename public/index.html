@@ -1,27 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-  
-</head>
-<body>
-    <div class="container shadow min-vh-100 py-2">
-        <div class="row d-flex  mt-5 justify-content-center ">
-            <div class="col ">
-                <h2 class="font-weight-light ">Hello World😊</h2>
-                <p>
-                    hindi_jokes api provides unlimited jokes in hindi language. 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
+    <!-- add fornt awesome cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css" integrity="sha512-RvQxwf+3zJuNwl4e0sZjQeX7kUa3o82bDETpgVCH2RiwYSZVDdFJ7N/woNigN/ldyOOoKw8584jM4plQdt8bhA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <style>
+        .animate-charcter {
+            text-transform: uppercase;
+            background-image: linear-gradient(-225deg,
+                    #231557 0%,
+                    #44107a 29%,
+                    #ff1361 67%,
+                    #fff800 100%);
+            background-size: auto auto;
+            background-clip: border-box;
+            background-size: 200% auto;
+            color: #fff;
+            background-clip: text;
+            /* text-fill-color: transparent; */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textclip 2s linear infinite;
+            display: inline-block;
+            font-size: 30px;
+        }
+
+        @keyframes textclip {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .page-header {
+
+            color: #fff;
+            text-align: center;
+            background-color: #159957;
+            background-image: linear-gradient(120deg, #155799, #159957);
+            height: 300px;
+            padding: 40px;
+            margin-bottom: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container-fluid page-header">
+        <h1 class="project-name">Hindi Jokes API</h1> <br>
+        <h2 class="project-tagline">Get random Hindi Jokes 😎😂</h2> <br>
+
+        <a href="https://github.com/amitSharma7741/Hindi_jokes_api" target="_blank" class="btn">
+            <button>
+                <i class="fa fa-github"></i>
+                View on GitHub
+            </button>
+        </a>
+
+
+    </div>
+    <div class="container   min-vh-100 py-2" style="max-width:650px">
+        <div class="row">
+            <div class="  mt-3">
+                <h3 class="animate-charcter"> Hindi Jokes </h3>
+
+            </div>
+        </div>
+        <p style="font-size: 20px;">This app is built using Node.js, Express, and MongoDB. It uses the
+            <a href="https://hindi-jokes-api.onrender.com/jokes" target="_blank" rel="noopener noreferrer">Hindi Jokes API</a>
+            to fetch random jokes in Hindi language. The app is deployed on Render.
+
+        </p>
+
+        <!-- api end point -->
+        <div class="row mt-5">
+            <a href="https://hindi-jokes-api.onrender.com/jokes" target="_blank" class="text-decoration-none"
+                rel="noopener noreferrer" style="font-size: 25px;  color: black;">
+                Api endpoints
+            </a>
+            <h6 class="text-center mt-3" style="
+            color: black;
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 10px;
+            
+            ">
+                https://hindi-jokes-api.onrender.com/jokes
+            </h6>
+        </div>
+
+        <h4 class="mt-5">How your responce looks like</h4>
+
+        <img src="https://raw.githubusercontent.com/amitSharma7741/Hindi_jokes_api/main/image/image.png"
+            class="img-fluid w-100 mt-4" alt=" kanha">
+
+
+
+
+        <h4 class="mt-3">How to use</h4>
+        <p style="font-size: 20px;">You can use this API in your projects. Just make a GET request to the API endpoint and you will get a random joke in Hindi language. You can also use the API in your browser by visiting the API endpoint in your browser. </p>
+
+        <h4 class="mt-5">How to contribute</h4>
+        <p style="font-size: 20px;">You can contribute to this project by adding more jokes to the jokes.json file.  Go to the <a href="https://github.com/amitSharma7741/Hindi_jokes_api/tree/main/Contribute" target="_blank" rel="noopener noreferrer">GitHub repository</a> Add more jokes to the jokes.json file and then make a pull request. 
+        </p>
+
+        <div class="row">
+            <!-- set foter -->
+
+            <div class=" text-center mt-5">
+                <h3 class=" ">Disclaimer </h3>
+
+                <p> this is a open source project and you can use it for free. Jokes in this API are taken from popular content being shared on WhatsApp and other social media platforms. 
                 </p>
+
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
- 
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+
 </body>
+
 </html>
