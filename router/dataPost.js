@@ -1,19 +1,19 @@
 const { resolveSoa } = require('dns');
 const express = require('express');
-const router = express.Router(); 
+const router = express.Router();
 const path = require('path');
-require("../DB/conn");  
+require("../DB/conn");
 const Data = require("../Model/dataSchema");
 
-const staticPath = path.join(__dirname, "../public"); 
+const staticPath = path.join(__dirname, "../public");
 router.use(express.static(staticPath));
 
 router.get('/', (req, res) => {
     res.send("Hello from the server router");
-     
-    
+
+
     // res.send("Hello from the server router");
-} 
+}
 );
 
 
@@ -24,18 +24,20 @@ router.get('/jokes', (req, res) => {
     Joke.then((result) => {
 
         const joke = result[Math.floor(Math.random() * result.length)];
-        
+
         //  remove key from object
 
         const { _id, jokeContent, jokeNo } = joke;
-         
-        const jokeOurOfNo = jokeNo 
- 
-        res.send({ _id, status: "Success", jokeContent, jokeNo: jokeOurOfNo ,
-    created_by:"Amit Sharma"});
+
+        const jokeOurOfNo = jokeNo
+
+        res.send({
+            _id, status: "Success", jokeContent, jokeNo: jokeOurOfNo,
+            created_by: "Amit Sharma"
+        });
         // res.send(joke);
     }
-    ).catch((err) => { 
+    ).catch((err) => {
         res.send(err);
     }
     );
@@ -64,17 +66,57 @@ router.get('/jokes', (req, res) => {
             const result = await user.save();
             res.status(201).send(result);
         }
-         
+
     } catch (error) {
         res.status(400).send(error);
     }
-}); */
+});
+ */
 
+router.get('/jokes/:count', (req, res) => {
+    const count = req.params.count;
+    if (count <= 50) {
 
+        // count = 5
+        const joke = Data.find()
+        joke.then((result) => {
+
+            const jokeCount = Math.ceil(result.length / count);
+            //     joke Count = 100/5 == 20  > 18
+            // const jokeCount2 = jokeCount - 2;
+            const randval = Math.floor(Math.random() * jokeCount ) + 1;
+            const data = [];
+            for (let i = 1; i <= count; i++) {
+                const val = result[randval * i];
+                const { _id, jokeContent, jokeNo } = val;
+
+                data.push({ _id, jokeContent, jokeNo });
+
+            }
+
+            res.send(
+                {
+                    status: "Success",
+                    created_by: "Amit Sharma",
+                    totalJokes:count,
+                    data: data
+                }
+            );
+            
+            
+        }).catch((err) => {
+            res.send(err);
+        }
+        );
+    } else {
+        res.send("Max limit is 50");
+    }
+
+})
 
 router.get('*', (req, res) => {
-    res.send(" 404 Error page");
-      
+    res.send(" 404 Error No page found");
+
 });
 
 module.exports = router;
