@@ -1,12 +1,12 @@
-const { resolveSoa } = require('dns');
+ 
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-require("../DB/conn");
-const Data = require("../Model/dataSchema");
+require("../DB/conn"); // connection to database
+const Data = require("../Model/dataSchema"); // import dataSchema
 
-const staticPath = path.join(__dirname, "../public");
-router.use(express.static(staticPath));
+const staticPath = path.join(__dirname, "../public"); // to get the path of public folder
+router.use(express.static(staticPath)); // to use the static files
 
 router.get('/', (req, res) => {
     res.send("Hello from the server router");
@@ -19,17 +19,17 @@ router.get('/', (req, res) => {
 
 
 router.get('/jokes', (req, res) => {
-    const Joke = Data.find()
+    const Joke = Data.find() // to find all the data in the database
 
     Joke.then((result) => {
 
-        const joke = result[Math.floor(Math.random() * result.length)];
+        const joke = result[Math.floor(Math.random() * result.length)]; // to get a random joke from the database
 
         //  remove key from object
 
         const { _id, jokeContent, jokeNo } = joke;
 
-        const jokeOurOfNo = jokeNo
+        const jokeOurOfNo = jokeNo; // to get the joke number
 
         res.send({
             _id, status: "Success", jokeContent, jokeNo: jokeOurOfNo,
@@ -46,18 +46,13 @@ router.get('/jokes', (req, res) => {
 
 /* router.post('/jokes', async (req, res) => {
     const { jokeContent } = req.body;
-
     const val = await Data.find();
     const val2 = val.length;
     const val3 = val2 + 1;
-
-
-
     const user = new Data({
         jokeContent: jokeContent,
         jokeNo: val3
     });
-
     try {
         const jokeExist = await Data.findOne({ jokeContent: jokeContent });
         if (jokeExist) {
@@ -66,7 +61,6 @@ router.get('/jokes', (req, res) => {
             const result = await user.save();
             res.status(201).send(result);
         }
-
     } catch (error) {
         res.status(400).send(error);
     }
