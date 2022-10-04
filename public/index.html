@@ -2,15 +2,32 @@
 <html lang="en">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GR8LM279F7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GR8LM279F7');
+    </script>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+      
+    <meta name="description" content="You can use this API in your projects. Just make a GET request to the API endpoint and you will get a random joke in Hindi language. You can also use the API in your browser by visiting the API endpoint in your browser.">
+    
+    <meta name="keywords" content="jokes, funny,hindi jokes,hindi jokes api, comedy, laugh, humor, funny jokes, funny videos, funny pictures, funny memes, funny quotes, funny videos 2021 ">
+   
+ 
+    <title>Hindi Jokes API || GET random hindi jokes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
-    <!-- add fornt awesome cdn -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css" integrity="sha512-RvQxwf+3zJuNwl4e0sZjQeX7kUa3o82bDETpgVCH2RiwYSZVDdFJ7N/woNigN/ldyOOoKw8584jM4plQdt8bhA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/fontawesome.min.css"
+        integrity="sha512-RvQxwf+3zJuNwl4e0sZjQeX7kUa3o82bDETpgVCH2RiwYSZVDdFJ7N/woNigN/ldyOOoKw8584jM4plQdt8bhA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     <style>
@@ -78,51 +95,83 @@
             </div>
         </div>
         <p style="font-size: 20px;">This app is built using Node.js, Express, and MongoDB. It uses the
-            <a href="https://hindi-jokes-api.onrender.com/jokes" target="_blank" rel="noopener noreferrer">Hindi Jokes API</a>
+            <a href="https://hindi-jokes-api.onrender.com/jokes" target="_blank" rel="noopener noreferrer">Hindi Jokes
+                API</a>
             to fetch random jokes in Hindi language. The app is deployed on Render.
 
         </p>
 
-        <!-- api end point -->
-        <div class="row mt-5">
-            <a href="https://hindi-jokes-api.onrender.com/jokes" target="_blank" class="text-decoration-none"
-                rel="noopener noreferrer" style="font-size: 25px;  color: black;">
-                Api endpoints
-            </a>
-            <h6 class="text-center mt-3" style="
-            color: black;
-            background-color: #e9ecef;
-            padding: 10px;
-            border-radius: 10px;
-            
-            ">
-                https://hindi-jokes-api.onrender.com/jokes
-            </h6>
-        </div>
 
-        <h4 class="mt-5">How your responce looks like</h4>
-
-        <img src="https://raw.githubusercontent.com/amitSharma7741/Hindi_jokes_api/main/image/image.png"
-            class="img-fluid w-100 mt-4" alt=" kanha">
-
-
+        <p><a href="https://hindi-jokes-api.onrender.com">API Link</a></p>
+        <pre><code>  https://hindi-jokes-api.onrender.com
+              </code></pre>
+        <hr>
+        <p><strong>No api_key needed free forever</strong> </p>
+        <hr>
+        <h2 id="custom-endpoints">Custom Endpoints</h2>
+        <h3 id="random-joke">Random joke</h3>
+        <p>Endpoint: <a href="https://hindi-jokes-api.onrender.com/jokes">/jokes</a></p>
+        <p>Example: <a href="https://hindi-jokes-api.onrender.com/jokes">https://hindi-jokes-api.onrender.com/jokes</a>
+        </p>
+        <p>Response:</p>
+        <pre><code class="language-jsonc">{
+                &quot;_id&quot;: &quot;631c381d798f9e2887b4cba1&quot;,
+                &quot;status&quot;: &quot;Success&quot;,
+                &quot;jokeContent&quot;: &quot;आओ 2 Min मौन रखे उन लड़कियों के लिए.. जिनकी शक्ल Nokia 1100 जैसी है और घमंड Iphone14 जैसा…. 😆🤣😋😉&quot;,
+                &quot;jokeNo&quot;: 116,
+                &quot;created_by&quot;: &quot;Amit Sharma&quot;
+                   }
+          </code></pre>
+        <h3 id="specify-count-max-50">Specify count (MAX 50)</h3>
+        <p>In order to get multiple jokes in a single request specify the count with the following endpoint.</p>
+        <p>Endpoint: <a href="https://hindi-jokes-api.onrender.com/jokes/2">/jokes/{count}</a></p>
+        <p>Example: <a
+                href="https://hindi-jokes-api.onrender.com/jokes/2">https://hindi-jokes-api.onrender.com/jokes/2</a></p>
+        <p>Response:</p>
+        <pre><code class="language-jsonc">{
+               &quot;status&quot;: &quot;Success&quot;,
+               &quot;created_by&quot;: &quot;Amit Sharma&quot;,
+               &quot;totalJokes&quot;: &quot;2&quot;,
+               &quot;data&quot;: [
+            {
+                        &quot;_id&quot;: &quot;63199fb5f02231a5ee2965a5&quot;,
+                        &quot;jokeContent&quot;: &quot;शादी के दो दिन बाद दूल्हा उस ब्यूटी पार्लर में गया जहां से उसकी बीवी ने शादी के लिए मेकअप करवाया था उसने पार्लर वाली मैडम को आईफोन 7 गिफ्ट किया और थैंक्यू बोलकर चला                         आया मैडम ने खुशी खुशी आईफोन का डब्बा खोला तो उसमें नोकिया 1100 पड़ा था साथ में एक पर्ची भी थी जिस पर लिखा था मुझे भी ऐसा ही महसूस हुआ था😆🤣😋😉 &quot;,
+                         &quot;jokeNo&quot;: 71
+                                   },
+                 {
+                    &quot;_id&quot;: &quot;63217239def3f928de48b025&quot;,
+                    &quot;jokeContent&quot;: &quot;थप्पड मारने पर नाराज वाईफ से हसबंड बोला:  ...आदमी उसी को मारता है जिससे वो प्यार करता है.   ..वाईफ ने हसबंड को 2 थप्पड मारे और बोली  ...आप क्या समझते है मै                          आपसे प्यार नही करती ... 😆🤣😋😉&quot;,
+                    &quot;jokeNo&quot;: 141
+                     }
+                  ]
+             }
+</code></pre>
 
 
         <h4 class="mt-3">How to use</h4>
-        <p style="font-size: 20px;">You can use this API in your projects. Just make a GET request to the API endpoint and you will get a random joke in Hindi language. You can also use the API in your browser by visiting the API endpoint in your browser. </p>
+        <p style="font-size: 20px;">You can use this API in your projects. Just make a GET request to the API endpoint
+            and you will get a random joke in Hindi language. You can also use the API in your browser by visiting the
+            API endpoint in your browser. </p>
 
         <h4 class="mt-5">How to contribute</h4>
-        <p style="font-size: 20px;">You can contribute to this project by adding more jokes to the jokes.json file.  Go to the <a href="https://github.com/amitSharma7741/Hindi_jokes_api/tree/main/Contribute" target="_blank" rel="noopener noreferrer">GitHub repository</a> Add more jokes to the jokes.json file and then make a pull request. 
+        <p style="font-size: 20px;">You can contribute to this project by adding more jokes to the jokes.json file. Go
+            to the <a href="https://github.com/amitSharma7741/Hindi_jokes_api/tree/main/Contribute" target="_blank"
+                rel="noopener noreferrer">GitHub repository</a> Add more jokes to the jokes.json file and then make a
+            pull request.
         </p>
 
         <div class="row">
-            <!-- set foter -->
+            <!-- set footer -->
 
             <div class=" text-center mt-5">
                 <h3 class=" ">Disclaimer </h3>
 
-                <p> this is a open source project and you can use it for free. Jokes in this API are taken from popular content being shared on WhatsApp and other social media platforms. 
+                <p> this is a open source project and you can use it for free. Jokes in this API are taken from popular social media platforms like Facebook, WhatsApp, Instagram, etc. If you find any joke offensive or if you want to remove any joke from the API then please 
+                    <!-- write a issue on github -->
+                    <a href="https://www.github.com/amitSharma7741/Hindi_jokes_api/issues" target="_blank"
+                        rel="noopener noreferrer">write a issue on GitHub</a>   
                 </p>
+ 
 
             </div>
         </div>
@@ -130,7 +179,17 @@
 
 
 
+    <script>
+        var documentTitle = document.title;
 
+        window.addEventListener("blur", function () {
+            document.title = "👋 Hi, come back!";
+        });
+
+        window.addEventListener("focus", function () {
+            document.title = documentTitle;
+        });
+    </script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
