@@ -1,18 +1,52 @@
- 
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+// const bcrypt = require('bcrypt');
+const crypto = require("crypto"); // for generating random string
+
+
 require("../DB/conn"); // connection to database
 const Data = require("../Model/dataSchema"); // import dataSchema
+const Auth = require("../Model/authSchema"); // import authSchema
 
 const staticPath = path.join(__dirname, "../public"); // to get the path of public folder
 router.use(express.static(staticPath)); // to use the static files
+  
+router.use((req, res, next) => {
+    const apiKey = req.query.api_key;
+    // apik key needed only for get request
+    if (req.method == "GET") {
+         
+        Auth.findOne({ apiToken: apiKey }, (err, data) => {
+            if (err) {
+                res.status(401).send({
+                    "status": "error",
+                    "message": "Something went wrong",
+                    "data": err
+
+                }); 
+            } else if (data) {
+                next();
+            } else { 
+                res.status(401).send({
+                    "status": "error",
+                    "message": "Invalid api key"
+                }); 
+            }
+        })
+        
+    } else {
+        next();
+    }
+})
+
+
+
 
 router.get('/', (req, res) => {
-    res.send("Hello from the server router");
+    // get query string
 
-
-    // res.send("Hello from the server router");
+    res.send("Hello from the server router"); 
 }
 );
 
@@ -45,6 +79,7 @@ router.get('/jokes', (req, res) => {
 );
 
 /* router.post('/jokes', async (req, res) => {
+
     const { jokeContent } = req.body;
     const val = await Data.find();
     const val2 = val.length;
@@ -64,8 +99,46 @@ router.get('/jokes', (req, res) => {
     } catch (error) {
         res.status(400).send(error);
     }
+}); */
+
+router.post('/register', async (req, res) => {
+    const { email } = req.body;
+    // generate api token use crypto module 
+
+
+    try {
+        const userExist = await Auth.findOne({ email: email }); // check if user already exist
+        //  what will be userExist return value
+
+        if (userExist) { 
+
+            const { apiToken } = userExist;
+            // res.status(200).send({ apiToken , message: "User already exist"});
+            // use hbs to render the page
+            res.status(200).render("apiAuth", { 
+                apiKey: apiToken, 
+                message: "You already have an API Key"  
+            }); 
+             
+
+        } else {
+            const generatedApiToken = crypto.randomBytes(14).toString("hex");
+ 
+            const user = new Auth({
+                email: email,
+                apiToken: generatedApiToken
+            });
+            const result = await user.save();
+             res.status(201).render("apiAuth", {
+                apiKey: generatedApiToken,
+                message:  "Your API Key is generated successfully"
+            }); 
+        }
+    } catch (error) {
+        res.status(400).send(error);
+    }
 });
- */
+
 
 router.get('/jokes/:count', (req, res) => {
     const count = req.params.count;
@@ -78,7 +151,7 @@ router.get('/jokes/:count', (req, res) => {
             const jokeCount = Math.ceil(result.length / count);
             //     joke Count = 100/5 == 20  > 18
             // const jokeCount2 = jokeCount - 2;
-            const randval = Math.floor(Math.random() * jokeCount ) + 1;
+            const randval = Math.floor(Math.random() * jokeCount) + 1;
             const data = [];
             for (let i = 1; i <= count; i++) {
                 const val = result[randval * i];
@@ -92,12 +165,12 @@ router.get('/jokes/:count', (req, res) => {
                 {
                     status: "Success",
                     created_by: "Amit Sharma",
-                    totalJokes:count,
+                    totalJokes: count,
                     data: data
                 }
             );
-            
-            
+
+
         }).catch((err) => {
             res.send(err);
         }
