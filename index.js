@@ -35,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // to parse the body of the 
 
 app.use(express.json()); // to parse the data in json format
 //  add hbs as view engine
-app.set('view engine', 'hbs');
+// app.set('view engine', 'hbs');
 app.use(require("./router/dataPost")); // import dataPost.js
  
 app.listen(PORT, () => {
