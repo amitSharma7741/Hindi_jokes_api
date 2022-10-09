@@ -3,6 +3,19 @@ const router = express.Router();
 const path = require('path');
 // const bcrypt = require('bcrypt');
 const crypto = require("crypto"); // for generating random string
+const nodemailer = require("nodemailer");
+
+
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    service: 'gmail',
+    port: 587,
+    secure: false,
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD // naturally, replace both with your real credentials or an application-specific password
+    }
+});
 
 
 require("../DB/conn"); // connection to database
@@ -63,7 +76,7 @@ router.get('/jokes', (req, res) => {
 
         const { _id, jokeContent, jokeNo } = joke;
 
-        const jokeOurOfNo = jokeNo; // to get the joke number
+        const jokeOurOfNo = jokeNo; // to get the jokes number
 
         res.send({
             _id, status: "Success", jokeContent, jokeNo: jokeOurOfNo,
@@ -103,7 +116,7 @@ router.get('/jokes', (req, res) => {
 
 router.post('/register', async (req, res) => {
     const { email } = req.body;
-    // generate api token use crypto module 
+    // generate api token use crypto module      
 
 
     try {
@@ -115,10 +128,14 @@ router.post('/register', async (req, res) => {
             const { apiToken } = userExist;
             // res.status(200).send({ apiToken , message: "User already exist"});
             // use hbs to render the page
-            res.status(200).render("apiAuth", { 
-                apiKey: apiToken, 
-                message: "You already have an API Key"  
-            }); 
+            // res.status(200).render("apiAuth", { 
+            //     apiKey: apiToken, 
+            //     message: "You already have an API Key"  
+            // }); 
+            res.status(200).json({
+                apiKey: apiToken,
+                message: "You already have an API Key"
+            })
              
 
         } else {
@@ -129,10 +146,23 @@ router.post('/register', async (req, res) => {
                 apiToken: generatedApiToken
             });
             const result = await user.save();
-             res.status(201).render("apiAuth", {
+             res.status(201).json( {
                 apiKey: generatedApiToken,
                 message:  "Your API Key is generated successfully"
             }); 
+            const mailOptions = {
+                from:  process.env.EMAIL,
+                to: email,
+                subject: 'API Key',
+                text: `Your API Key is ${generatedApiToken}`
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
         }
     } catch (error) {
         res.status(400).send(error);
