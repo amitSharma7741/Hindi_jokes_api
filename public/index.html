@@ -29,7 +29,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
- 
+
 
     <!-- add font awesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
@@ -111,11 +111,11 @@
         <form action="/register" class="mt-4" method="POST" id="form">
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Email address</label>
-               
+
                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     name="email" placeholder="Write your mail" required>
-                
-                
+
+
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button class="btn btn-primary mt-3" type="submit">
@@ -125,8 +125,9 @@
                 </div>
             </div>
         </form>
-
+           
         <p id="apiTokenId"></p>
+         
         <p class="mt-2"><a href="https://hindi-jokes-api.onrender.com">API Link</a></p>
         <pre>
             <code>  
@@ -237,41 +238,111 @@
         //             input.value = '@outlook.com';
         //         }
         //     }
-           
+
         // });
 
-        
-        
 
 
 
 
-        const form = document.getElementById('form');
+
+
+        const form = document.getElementById('form'); 
         const apiTokenId = document.getElementById('apiTokenId');
-        form.addEventListener('submit', (e) => {
+
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             //  get form data 
-            const email = document.getElementById('exampleInputEmail1').value;
+            // get input tag value 
+            const email = document.getElementById('exampleInputEmail1').value; 
+            console.log(email);
 
-            // send a post request
-            
-            
-
-            fetch('http://localhost:3001/register', {
+            //  send a post request to the server
+            //  https://hindi-jokes-api.onrender.com
+            const response = await fetch('https://hindi-jokes-api.onrender.com/register', {
                 method: 'POST',
-                body: JSON.stringify({ email: email }),
                 headers: {
                     'Content-Type': 'application/json'
-                }
-            }).then(res => res.json()).then(data => {
-                console.log(data);
-                apiTokenId.innerHTML = data.apiToken;
-            })
+                },
+                body: JSON.stringify({
+                    email
+                })
+            });
+            const data = await response.json();
+            // create a new element
+            
+            const div = document.createElement('div');
+            div.classList.add('card');
+            div.style.background = 'cornsilk';
+            div.style.borderRadius = '20px';
+            div.innerHTML = `
+                <div class="card-body">
+                    <h4 class="text-center">Your Api Key</h4>
+                    <p class="card-text text-center">${data.apiKey}</p>
+                 
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button class="btn btn-primary" id="copyToClipBoardId" onclick="copyToClipboard()">
+                            Copy to clipboard 
+                        </button>
+                    </div>
+                    <p class="mx-3 mt-2"> Note : ${data.message} </p>
+                     
+                </div>
+            `;
+            apiTokenId.appendChild(div);
+        
+            // apiTokenId.innerHTML ="Your api key = "+ data.apiKey;
+            console.log(data);
+            
+            
+
             // reset form input tag values
             form.reset();
 
         })
- 
+
+        const apiKey = document.querySelector('p').innerText;
+        localStorage.setItem('apiKey', apiKey); 
+
+        // const copyToClipBoardId = document.querySelector('#copyToClipBoardId');
+        const copyToClipboardId =  document.getElementById('copyToClipBoardId');
+        // copy to clipboard function
+        function copyToClipboard() {
+            // get the text from the input tag
+            const text = document.getElementsByClassName('card-text')[0].innerText;
+            // const text = document.querySelector('p').innerText;
+            // create a new element
+            const input = document.createElement('input');
+            // set the value of the input tag
+            input.value = text;
+            // append the input tag to the body tag
+            document.body.appendChild(input);
+            // select the input tag
+            input.select();
+            // copy the input tag value
+            document.execCommand('copy');
+            // remove the input tag
+            document.body.removeChild(input);
+            // alert the user
+            copyToClipBoardId.innerText = 'Copied';
+            copyToClipBoardId.classList.add('btn-success');
+            // alert('Copied to clipboard');
+        }
+        /* 
+        function copyToClipboard() {
+            const el = document.createElement('textarea');
+            el.value = apiKey;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            //alert('Copied to clipboard');
+            // button text change to copied and color change to green
+            copyToClipBoardId.innerText = 'Copied';
+            copyToClipBoardId.classList.add('btn-success');
+
+
+        } */
         var documentTitle = document.title;
 
         window.addEventListener("blur", function () {
