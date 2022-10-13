@@ -34,6 +34,10 @@
     <!-- add font awesome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+     <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
     <style>
         .animate-charcter {
             text-transform: uppercase;
@@ -117,17 +121,29 @@
 
 
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <!-- place recaptcha here -->
+
+
+ 
+
+                <div class="g-recaptcha" data-sitekey="6LdnwHsiAAAAAPFxejqCjltS35hOifluhf7rlzmq" data-callback="onRecaptchaSuccess"
+                data-expired-callback="onRecaptchaResponseExpiry"
+                data-error-callback="onRecaptchaError"></div> 
+
                 <div class="d-grid gap-2 col-6 mx-auto">
-                    <button class="btn btn-primary mt-3" type="submit">
+                    <!-- disable button -->
+                    <button class="btn btn-primary mt-3"   type="submit" id="submit" disabled>
                         <i class="fa fa-key"></i>
                         Generate API Key
                     </button>
+
+
                 </div>
             </div>
         </form>
-           
+
         <p id="apiTokenId"></p>
-         
+
         <p class="mt-2"><a href="https://hindi-jokes-api.onrender.com">API Link</a></p>
         <pre>
             <code>  
@@ -143,7 +159,7 @@
         <h3 id="random-joke">Random joke</h3>
         <p>Endpoint: <a href="https://hindi-jokes-api.onrender.com/jokes">/jokes</a></p>
         <p>Example:
-            <a href="https://hindi-jokes-api.onrender.com/jokes" style="text-decoration: none;" target="_blank"
+            <a href="https://hindi-jokes-api.onrender.com/jokes" id="firstEndpoint" style="text-decoration: none;" target="_blank"
                 rel="noopener noreferrer">
                 https://hindi-jokes-api.onrender.com/jokes?api_key=Your api key
             </a>
@@ -161,7 +177,7 @@
         <p>In order to get multiple jokes in a single request specify the count with the following endpoint.</p>
         <p>Endpoint: <a href="https://hindi-jokes-api.onrender.com/jokes/2">/jokes/{count}</a></p>
         <p>Example:
-            <a href="https://hindi-jokes-api.onrender.com/jokes/2" style="text-decoration: none;" target="_blank"
+            <a href="https://hindi-jokes-api.onrender.com/jokes/2" id="secondEndpoint" style="text-decoration: none;" target="_blank"
                 rel="noopener noreferrer">
                 https://hindi-jokes-api.onrender.com/jokes/2?api_key=Your api key
             </a>
@@ -242,20 +258,26 @@
         // });
 
 
+ 
+        const recaptchaDiv = document.querySelector('.g-recaptcha');
+        const submitButton =  document.getElementById('submit'); 
+
+        if (recaptchaDiv) {
+            submitButton.disabled = false;
+        }
 
 
 
 
-
-        const form = document.getElementById('form'); 
+        const form = document.getElementById('form');
         const apiTokenId = document.getElementById('apiTokenId');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             //  get form data 
             // get input tag value 
-            const email = document.getElementById('exampleInputEmail1').value; 
-            console.log(email);
+            const email = document.getElementById('exampleInputEmail1').value;
+            // console.log(email);
 
             //  send a post request to the server
             //  https://hindi-jokes-api.onrender.com
@@ -269,8 +291,17 @@
                 })
             });
             const data = await response.json();
-            // create a new element
+ 
+            const anchorTag1 = document.getElementById('firstEndpoint');
+            anchorTag1.href = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
+            anchorTag1.innerText = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
             
+            const anchorTag2 = document.getElementById('secondEndpoint');
+            anchorTag2.href = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
+            anchorTag2.innerText = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
+
+            // create a new element
+
             const div = document.createElement('div');
             div.classList.add('card');
             div.style.background = 'cornsilk';
@@ -290,11 +321,10 @@
                 </div>
             `;
             apiTokenId.appendChild(div);
-        
-            // apiTokenId.innerHTML ="Your api key = "+ data.apiKey;
+ 
             console.log(data);
-            
-            
+
+
 
             // reset form input tag values
             form.reset();
@@ -302,10 +332,10 @@
         })
 
         const apiKey = document.querySelector('p').innerText;
-        localStorage.setItem('apiKey', apiKey); 
+        localStorage.setItem('apiKey', apiKey);
 
         // const copyToClipBoardId = document.querySelector('#copyToClipBoardId');
-        const copyToClipboardId =  document.getElementById('copyToClipBoardId');
+        const copyToClipboardId = document.getElementById('copyToClipBoardId');
         // copy to clipboard function
         function copyToClipboard() {
             // get the text from the input tag
