@@ -17,12 +17,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description"
-        content="You can use this API in your projects. Just make a GET request to the API endpoint and you will get a random joke in Hindi language. You can also use the API in your browser by visiting the API endpoint in your browser.">
+        content="Get random hindi jokes. make a GET request to the API endpoint and you will get a random joke in Hindi language. You can also use the API in your browser by visiting the API endpoint in your browser.">
 
     <meta name="keywords"
         content="jokes, funny,hindi jokes,hindi jokes api, comedy, laugh, humor, funny jokes, funny videos, funny pictures, funny memes, funny quotes, funny videos 2021 ">
 
+  <!-- add seo related meta tag --> 
+    <meta name="author" content="Amit Sharma">
+    <meta property="og:title" content="Hindi Jokes API"> 
+    <meta property="og:description"
+        content="Get random hindi jokes. Just make a GET request to the API endpoint and you will get a random joke in Hindi language. You can also use the API in your browser by visiting the API endpoint in your browser.">
 
+    
+     
+     
     <title>Hindi Jokes API || GET random hindi jokes</title>
     <!--   add favicons  -->
     <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
@@ -50,9 +58,9 @@
             background-clip: border-box;
             background-size: 200% auto;
             color: #fff;
-            background-clip: text;
-            /* text-fill-color: transparent; */
             -webkit-background-clip: text;
+            /* text-fill-color: transparent; */
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: textclip 2s linear infinite;
             display: inline-block;
@@ -64,12 +72,19 @@
                 background-position: 200% center;
             }
         }
-
+       /*  header {
+ 
+            background-image: url(../image/Hindi\ Jokes\ cover\ image.png); 
+            height: 400px;
+            background-size: cover;
+            width: 100%;
+        } */
         .page-header {
 
             color: #fff;
             text-align: center;
             background-color: #159957;
+            /* add hindi jokes cover image to background image */
             background-image: linear-gradient(120deg, #155799, #159957);
             height: 300px;
             padding: 40px;
@@ -80,13 +95,17 @@
 </head>
 
 <body>
+    <header>
+     <img class="w-100" src="../image/Hindi Jokes cover image.png" alt="hindi-jokes-api" style="height: 400px; background-repeat: no-repeat;
+     background-attachment: fixed;
+     background-size: cover;">
+    </header> 
 
-
-    <div class="container-fluid page-header">
+   <!--  <div class="container-fluid page-header">
         <h1 class="project-name">Hindi Jokes API</h1> <br>
         <h2 class="project-tagline">Get random Hindi Jokes 😎😂</h2> <br>
 
-        <a href="https://github.com/amitSharma7741/Hindi_jokes_api" target="_blank" class="btn">
+        <a href="https://github.com/amitSharma7741/Hindi_jokes_api" target="_blank" class="btn" rel="noopener noreferrer">
             <button>
                 <i class="fa-brands fa-github"></i>
                 View on GitHub
@@ -94,7 +113,7 @@
         </a>
 
 
-    </div>
+    </div> -->
     <div class="container   min-vh-100 py-2" style="max-width:650px">
         <div class="row">
             <div class="  mt-3">
@@ -207,14 +226,22 @@
         <p style="font-size: 20px;">You can use this API in your projects. Just make a GET request to the API endpoint
             and you will get a random joke in Hindi language. You can also use the API in your browser by visiting the
             API endpoint in your browser. </p>
-
+        <h4 class="mt-5">
+          Github Repository Link
+        </h4>
+        <a href="https://github.com/amitSharma7741/Hindi_jokes_api" target="_blank" class="btn d-flex justify-content-center" rel="noopener noreferrer">
+            <button>
+                <i class="fa-brands fa-github"></i>
+                View on GitHub
+            </button>
+        </a>
         <h4 class="mt-5">How to contribute</h4>
         <p style="font-size: 20px;">You can contribute to this project by adding more jokes to the jokes.json file. Go
             to the <a href="https://github.com/amitSharma7741/Hindi_jokes_api/tree/main/Contribute" target="_blank"
                 rel="noopener noreferrer">GitHub repository</a> Add more jokes to the jokes.json file and then make a
             pull request.
         </p>
-
+        
         <div class="row">
             <!-- set footer -->
 
