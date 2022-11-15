@@ -307,36 +307,39 @@
             //  get form data 
             // get input tag value 
             const email = document.getElementById('exampleInputEmail1').value;
-            // console.log(email);
+            const emailContains = "@gmail.com";
+            if (email.match(emailContains)) { 
+                // if email contains @gmail.com then send a post request
+                // console.log(email);
 
-            //  send a post request to the server
-            //  https://hindi-jokes-api.onrender.com
-            const response = await fetch('https://hindi-jokes-api.onrender.com/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email
-                })
-            });
-            const data = await response.json();
+                //  send a post request to the server
+                //  https://hindi-jokes-api.onrender.com
+                const response = await fetch('https://hindi-jokes-api.onrender.com/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email
+                    })
+                });
+                const data = await response.json();
 
-            const anchorTag1 = document.getElementById('firstEndpoint');
-            anchorTag1.href = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
-            anchorTag1.innerText = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
+                const anchorTag1 = document.getElementById('firstEndpoint');
+                anchorTag1.href = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
+                anchorTag1.innerText = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
 
-            const anchorTag2 = document.getElementById('secondEndpoint');
-            anchorTag2.href = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
-            anchorTag2.innerText = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
+                const anchorTag2 = document.getElementById('secondEndpoint');
+                anchorTag2.href = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
+                anchorTag2.innerText = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
 
-            // create a new element
+                // create a new element
 
-            const div = document.createElement('div');
-            div.classList.add('card');
-            div.style.background = 'cornsilk';
-            div.style.borderRadius = '20px';
-            div.innerHTML = `
+                const div = document.createElement('div');
+                div.classList.add('card');
+                div.style.background = 'cornsilk';
+                div.style.borderRadius = '20px';
+                div.innerHTML = `
                 <div class="card-body">
                     <h4 class="text-center">Your Api Key</h4>
                     <p class="card-text text-center">${data.apiKey}</p>
@@ -348,13 +351,16 @@
                     </div>
                     <p class="mx-3 mt-2"> Note : ${data.message} </p>
                      
-                </div>
-            `;
-            apiTokenId.appendChild(div);
+                </div> `;
+            
+                apiTokenId.appendChild(div);
 
-            console.log(data);
+                console.log(data);
+            }
 
-
+            else {
+                alert('Please enter a valid email address');
+            }
 
             // reset form input tag values
             form.reset();
