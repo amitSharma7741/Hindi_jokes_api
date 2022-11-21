@@ -257,6 +257,20 @@
         </div>
     </div>
 
+
+    <div class="fixed-bottom mb-5">
+        <div class="text-center">
+            <button class="btn bg-dark text-white">
+                Give a feedback
+                <a href="https://forms.gle/Kkvs85NLvv2y1vwB7" class="text-white" target="_blank" rel="noopener noreferrer">
+                    fill this form
+                </a>
+
+            </button>
+
+        </div>
+
+    </div>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5852688625693261"
         crossorigin="anonymous"></script>
     <!-- horrizontalReview -->
@@ -308,7 +322,7 @@
             // get input tag value 
             const email = document.getElementById('exampleInputEmail1').value;
             const emailContains = "@gmail.com";
-            if (email.match(emailContains)) { 
+            if (email.match(emailContains)) {
                 // if email contains @gmail.com then send a post request
                 // console.log(email);
 
@@ -352,7 +366,7 @@
                     <p class="mx-3 mt-2"> Note : ${data.message} </p>
                      
                 </div> `;
-            
+
                 apiTokenId.appendChild(div);
 
                 console.log(data);
