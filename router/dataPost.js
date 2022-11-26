@@ -18,13 +18,15 @@ const transporter = nodemailer.createTransport({
 });
 
 
-require("../DB/conn"); // connection to database
+require("../DB/conn"); // connection to database 
 const Data = require("../Model/dataSchema"); // import dataSchema
 const Auth = require("../Model/authSchema"); // import authSchema
+const apiAuthCheck = require("./apiAuth"); // import apiAuth.js file
 
 const staticPath = path.join(__dirname, "../public"); // to get the path of public folder
 router.use(express.static(staticPath)); // to use the static files
   
+/* 
 router.use((req, res, next) => {
     const apiKey = req.query.api_key;
     // apik key needed only for get request
@@ -53,19 +55,19 @@ router.use((req, res, next) => {
     }
 })
 
-
+ */
 
 
 router.get('/', (req, res) => {
     // get query string
 
-    res.send("Hello from the server router"); 
+    res.send("Hello from the server router");  
 }
 );
 
 
 
-router.get('/jokes', (req, res) => {
+router.get('/jokes', apiAuthCheck  , (req, res) => { 
     const Joke = Data.find() // to find all the data in the database
 
     Joke.then((result) => {
