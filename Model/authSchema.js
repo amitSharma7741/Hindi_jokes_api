@@ -1,17 +1,25 @@
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose');
 // const validator = require('validator'); 
 // const bcrypt = require("bcrypt")
 const authSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique:true 
+        unique: true
     },
     // api token
     apiToken: {
-        type:String,
-        required:true
-    } 
+        type: String,
+        required: true
+    },
+    usage: [
+        {
+            date: String,
+            count: Number
+        }
+    ]
+
+
 });
 
 // hash the password before saving
@@ -22,11 +30,10 @@ const authSchema = new mongoose.Schema({
     next();
 })  */
 
- 
+
 
 const Auth = mongoose.model('AUTH', authSchema);
 
 module.exports = Auth;
 
 
- 
