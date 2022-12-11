@@ -16,7 +16,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE,OPTIONS'); // to allow cross origin resource sharing
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // to allow cross origin resource sharing
 
-    if (req.method === 'OPTIONS') {
+    if (req.method === 'OPTIONS') { 
         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET'); // to allow cross origin resource sharing
         return res.status(200).json({});
     }
@@ -39,6 +39,6 @@ app.use(express.json()); // to parse the data in json format
 app.use(require("./router/dataPost")); // import dataPost.js
  
 app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}!`);
+    console.log(`Example app listening on http://localhost:${PORT}!`);
 }
 );
