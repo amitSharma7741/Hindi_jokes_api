@@ -14,8 +14,15 @@ const authSchema = new mongoose.Schema({
     },
     usage: [
         {
-            date: String,
-            count: Number
+            date:{
+                type: String,
+                default: "2022-11-26"
+            } ,
+
+            count:  {
+                type: Number,
+                default: 0
+            }
         }
     ]
 
