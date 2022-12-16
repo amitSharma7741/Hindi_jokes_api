@@ -1,0 +1,126 @@
+ 
+
+   .animate-charcter {
+    text-transform: uppercase;
+    background-image: linear-gradient(-225deg,
+            #231557 0%,
+            #44107a 29%,
+            #ff1361 67%,
+            #fff800 100%);
+    background-size: auto auto;
+    background-clip: border-box;
+    background-size: 200% auto;
+    color: #fff;
+    -webkit-background-clip: text;
+    /* text-fill-color: transparent; */
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textclip 2s linear infinite;
+    display: inline-block;
+    font-size: 30px;
+}
+
+@keyframes textclip {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.page-header {
+
+    color: #fff;
+    text-align: center;
+    background-color: #159957;
+    /* add hindi jokes cover image to background image */
+    background-image: linear-gradient(120deg, #155799, #159957);
+    height: 300px;
+    padding: 40px;
+    margin-bottom: 20px;
+
+}
+
+
+
+.divider
+{
+	position: relative;
+	margin: 70px 0;
+	height: 1px;
+}
+
+.div-transparent:before
+{
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 5%;
+	right: 5%;
+	width: 90%;
+	height: 1px;
+	background-image: linear-gradient(to right, transparent, rgb(48,49,51), transparent);
+}
+ 
+.div-dot:after
+{
+	content: "";
+	position: absolute;
+	z-index: 1;
+	top: -9px;
+	left: calc(50% - 9px);
+	width: 18px;
+	height: 18px;
+	background-color: goldenrod;
+	border: 1px solid rgb(48,49,51);
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 2px white,
+					0 0 0 4px white;
+}
+
+
+
+
+
+
+
+/* pre {
+    background-color:  black;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    color: #fff;
+    display: block;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.42857;
+    margin: 0 0 10px;
+    padding: 9.5px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+} */
+
+/* .apiUrl {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    color: #333;
+    display: flex;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.42857;
+    margin: 0 0 10px;
+    padding: 20px; 
+    justify-content: center;
+} */
+
+.apiBtn {
+    font-weight: 500;
+}
+@media screen and (max-width: 390px) {
+    .apiBtn {
+        font-size: 10px;
+    }
+} 
