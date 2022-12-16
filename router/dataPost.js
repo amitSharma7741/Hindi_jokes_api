@@ -39,6 +39,7 @@ const transporter = nodemailer.createTransport({
 require("../DB/conn"); // connection to database 
 const Data = require("../Model/dataSchema"); // import dataSchema
 const Auth = require("../Model/authSchema"); // import authSchema
+const usePerDay = require("../Model/totalUsePerDay"); // import usePerDaySchema
 // const apiAuthCheck = require("./apiAuth"); // import apiAuth.js file
 
 const staticPath = path.join(__dirname, "../public"); // to get the path of public folder
@@ -128,6 +129,40 @@ const updateUsage = (apiKey) => {
 
 }
 
+// update how many times the api is used per day
+const updateUsePerDay = ()=>{
+    const today = new Date().toISOString().split('T')[0]; // to get the current date
+    usePerDay.findOne({date: today}, (err, data)=>{
+        if(err){
+            console.log(err);
+        }else{
+            if(data){
+                usePerDay.updateOne({date: today}, { $set: {count: data.count + 1}}, (err, data)=>{
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log("Usage updated", data);
+                    }
+                }
+                )
+            }else{
+                usePerDay.create({
+                    date: today,
+                    count: 1
+                }, (err, data)=>{
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log("Usage updated", data);
+                    }
+                }
+                )
+            }
+
+        }
+    })
+}
+
 const sampleFun = (ran) => {
     // console.log(ran);
     title = ran;
@@ -155,7 +190,7 @@ router.use((req, res, next) => {
             } else if (data) {
                 // update usage
                 updateUsage(apiKey);
-
+                updateUsePerDay();
 
                 next();
             } else {
@@ -296,6 +331,33 @@ router.post('/register', limiter, async (req, res) => {
     }
 });
 
+router.post("/sendOtp", limiter, async (req, res) => {
+    const { email } = req.body;
+    try {
+         
+            const otp = Math.floor(100000 + Math.random() * 900000);
+            const mailOptions = {
+                from: process.env.EMAIL,
+                to: email,
+                subject: 'OTP',
+                text: `Your OTP is ${otp}`
+            };
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+            res.status(200).json({
+                otp: otp,
+                message: "OTP is sent to your email"
+            })
+        
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}); 
 
 router.get('/jokes/:count', limiter, (req, res) => {
     const count = req.params.count;
