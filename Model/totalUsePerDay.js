@@ -9,6 +9,10 @@ const usePerSchema = new mongoose.Schema({
     count:  {
         type: Number,
         default: 0
+    },
+    usageAccount: {
+        type:Array,
+        default: []
     }
 });
 
