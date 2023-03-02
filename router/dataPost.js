@@ -39,6 +39,7 @@ require("../DB/conn"); // connection to database
 const Data = require("../Model/dataSchema"); // import dataSchema
 const Auth = require("../Model/authSchema"); // import authSchema
 const usePerDay = require("../Model/totalUsePerDay"); // import usePerDaySchema
+const sampleData = require("../Model/sampleData"); // import sampleData
 // const apiAuthCheck = require("./apiAuth"); // import apiAuth.js file
 
 const staticPath = path.join(__dirname, "../public"); // to get the path of public folder
@@ -132,15 +133,15 @@ const updateUsage = (apiKey) => {
 // update how many times the api is used per day
 const updateUsePerDay = async (apiKey) => {
   const today = new Date().toISOString().split("T")[0]; // to get the current date
-  
+
   const data = await Auth.findOne({ apiToken: apiKey });
   const emailId = data.email;
-  const emailCount = data.usage[0].count; 
+  const emailCount = data.usage[0].count;
   usePerDay.findOne({ date: today }, (err, data) => {
     if (err) {
       console.log(err);
     } else {
-      if (data) { 
+      if (data) {
         const usageAccount = data.usageAccount;
         // also sort the array of objects in descending order of count
 
@@ -152,11 +153,14 @@ const updateUsePerDay = async (apiKey) => {
             { date: today },
             {
               $set: { count: data.count + 1 },
-              $push: { usageAccount: { emailId: emailId, count: emailCount } }, 
+              $push: { usageAccount: { emailId: emailId, count: emailCount } },
             },
             (err, data) => {
-              if (err) { console.log(err); } 
-              else {  console.log("Usage updated", data); }
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("Usage updated", data);
+              }
             }
           );
         } else {
@@ -169,23 +173,31 @@ const updateUsePerDay = async (apiKey) => {
               },
             },
             (err, data) => {
-              if (err) {  console.log(err); } 
-              else { console.log("Usage updated", data); }
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("Usage updated", data);
+              }
             }
           );
         }
 
-    //    sort the array of objects in descending order of count
-    usePerDay.updateOne(
-        { date: today },
-        {
-            $set: { usageAccount: usageAccount.sort((a, b) => b.count - a.count) },
-        },
-        (err, data) => {
-            if (err) {  console.log(err); } 
-            else {  console.log("Usage updated", data); }
-        }
-    ); 
+        //    sort the array of objects in descending order of count
+        usePerDay.updateOne(
+          { date: today },
+          {
+            $set: {
+              usageAccount: usageAccount.sort((a, b) => b.count - a.count),
+            },
+          },
+          (err, data) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Usage updated", data);
+            }
+          }
+        );
       } else {
         usePerDay.create(
           {
@@ -199,8 +211,11 @@ const updateUsePerDay = async (apiKey) => {
             ],
           },
           (err, data) => {
-            if (err) { console.log(err); } 
-            else {  console.log("Usage updated", data);  }
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Usage updated", data);
+            }
           }
         );
       }
@@ -385,6 +400,39 @@ router.post("/sendOtp", limiter, async (req, res) => {
   }
 });
 
+router.post("/sampleData", limiter, async (req, res) => {
+  const { jokeContent } = req.body;
+  try {
+    //  check jokeContent is available or not in data collection
+    const jokeExist = await Data.findOne({ jokeContent: jokeContent });
+    const jokeExist2 = await sampleData.findOne({ jokeContent: jokeContent });
+    if (jokeExist || jokeExist2) {
+      res.status(400).send({
+        status: "Joke already exist",
+        message: "Joke already exist",
+      });
+    } else {
+      const today = new Date().toISOString();
+
+      //  save jokeContent and date in sampleData collection
+      const user = new sampleData({
+        jokeContent: jokeContent.trim(),
+        date: today,
+      });
+
+      const result = await user.save();
+      res.status(201).send({
+        status: "Success",
+        message: "Joke added successfully"
+      });
+    }
+  } catch (error) {
+    res.status(400).send({
+      status: "Error",
+      message: "Error occured",
+    });
+  }
+});
 router.get("/jokes/:count", limiter, (req, res) => {
   const count = req.params.count;
   if (count <= 50) {
@@ -430,6 +478,7 @@ router.get("/sendGreetings", async (req, res) => {
     const emailTemplate = path.join(__dirname, "../views/email-template.html");
     const allEmails = [];
     const emails = await Auth.find();
+    console.log(emails[68].email);
 
     emails.forEach((email) => {
       allEmails.push(email.email);
@@ -440,8 +489,8 @@ router.get("/sendGreetings", async (req, res) => {
 
     const mailOptions = {
       from: process.env.EMAIL,
-      to: allEmails[69],
-      subject: "Greetings",
+      to: allEmails,
+      subject: "Thank you for using our Hindi jokes API",
       html: fs.readFileSync(emailTemplate, { encoding: "utf-8" }),
     };
 

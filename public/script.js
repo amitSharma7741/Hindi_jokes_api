@@ -1,124 +1,117 @@
-
 var otp = 0;
 
-const emailInput = document.getElementById('exampleInputEmail2');
-const sendOtpButton = document.getElementById('sendOtpButton');
-const submitNew = document.getElementById('submitNew');
+const emailInput = document.getElementById("exampleInputEmail2");
+const sendOtpButton = document.getElementById("sendOtpButton");
+const submitNew = document.getElementById("submitNew");
 
 const sendOTP = async () => {
-    // change otp button text to sent and disable it
-    const email = emailInput.value;
-    // check email is valid or not
-    // like this test@gmail.com is valid
-    const emailContains = "@gmail.com"
-    const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/; //
-    if (emailRegex.test(email) && email.includes(emailContains)) {
-        // send post request to the server to send otp to the user
-        const response = await fetch('/sendOTP', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email
-            })
-        });
-
-        const data = await response.json();
-        otp = data.otp;
-        // console.log(data);
-        sendOtpButton.innerHTML = '<i class="fa-sharp fa-solid fa-check"></i> Sent';
-        sendOtpButton.disabled = true;
-        // also change the class of the button to btn-success
-        sendOtpButton.classList.remove('btn-info');
-        sendOtpButton.classList.add('btn-success');
-    }
-    else {
-        sendOtpButton.innerText = 'Invalid Email';
-        sendOtpButton.disabled = true;
-    }
-    // console.log(emailInput);
-
-    // console.log(email);
-    // console.log(otp);
-
-}
-
-const verifyOTP = () => {
-
-    const otpInput = document.getElementById('otp');
-    const otpVal = otpInput.value;
-    const verifyOtpButton = document.getElementById('verifyOtpButton');
-
-    // change otp button text to sent and disable it
-
-
-    if (otp == otpVal) {
-        verifyOtpButton.innerHTML = '<i class="fa-sharp fa-solid fa-check"></i> Verified';
-        verifyOtpButton.disabled = true;
-        // also change the class of the button to btn-success
-        verifyOtpButton.classList.remove('btn-info');
-        verifyOtpButton.classList.add('btn-success');
-        // enable submit button
-        submitNew.disabled = false;
-
-    }
-    else {
-        verifyOtpButton.innerText = 'Invalid OTP';
-        verifyOtpButton.disabled = true;
-    }
-
-    // console.log(otp);
-}
-
-//  generating api key
-submitNew.addEventListener('click', async (e) => {
-    e.preventDefault();
-    submitNew.innerText = 'Generating api key';
-    const email = document.getElementById('exampleInputEmail2').value;
-    const newIdBox = document.getElementById('newIdBox');
-    const response = await fetch('/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email
-        })
+  // change otp button text to sent and disable it
+  const email = emailInput.value;
+  // check email is valid or not
+  // like this test@gmail.com is valid
+  const emailContains = "@gmail.com";
+  const emailRegex =
+    /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/; //
+  if (emailRegex.test(email) && email.includes(emailContains)) {
+    // send post request to the server to send otp to the user
+    const response = await fetch("/sendOTP", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+      }),
     });
 
     const data = await response.json();
-    const anchorTag1 = document.getElementById('firstEndpoint');
-    anchorTag1.href = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
-    anchorTag1.innerText = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
-
-    const anchorTag2 = document.getElementById('secondEndpoint');
-    anchorTag2.href = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
-    anchorTag2.innerText = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
-
-    submitNew.innerText = "Success !";
-    // also change the class of the button to btn-success
-    submitNew.classList.remove('btn-primary');
-    submitNew.classList.add('btn-success');
-    submitNew.disabled = true;
-
+    otp = data.otp;
     // console.log(data);
+    sendOtpButton.innerHTML = '<i class="fa-sharp fa-solid fa-check"></i> Sent';
+    sendOtpButton.disabled = true;
+    // also change the class of the button to btn-success
+    sendOtpButton.classList.remove("btn-info");
+    sendOtpButton.classList.add("btn-success");
+  } else {
+    sendOtpButton.innerText = "Invalid Email";
+    sendOtpButton.disabled = true;
+  }
+  // console.log(emailInput);
 
+  // console.log(email);
+  // console.log(otp);
+};
 
-    // remove the previous div if any
-    if (newIdBox.firstChild) {
-        newIdBox.removeChild(newIdBox.firstChild);
-    }
+const verifyOTP = () => {
+  const otpInput = document.getElementById("otp");
+  const otpVal = otpInput.value;
+  const verifyOtpButton = document.getElementById("verifyOtpButton");
 
+  // change otp button text to sent and disable it
 
-    // create a new div
-    const div = document.createElement('div');
-    div.classList.add('card');
-    div.style.background = 'cornsilk';
-    div.style.borderRadius = '20px';
-    div.style.boxShadow = '0 0 10px 0 rgba(0,0,0,0.2)';
-    div.style.marginTop = '20px';
-    div.innerHTML = `
+  if (otp == otpVal) {
+    verifyOtpButton.innerHTML =
+      '<i class="fa-sharp fa-solid fa-check"></i> Verified';
+    verifyOtpButton.disabled = true;
+    // also change the class of the button to btn-success
+    verifyOtpButton.classList.remove("btn-info");
+    verifyOtpButton.classList.add("btn-success");
+    // enable submit button
+    submitNew.disabled = false;
+  } else {
+    verifyOtpButton.innerText = "Invalid OTP";
+    verifyOtpButton.disabled = true;
+  }
+
+  // console.log(otp);
+};
+
+//  generating api key
+submitNew.addEventListener("click", async (e) => {
+  e.preventDefault();
+  submitNew.innerText = "Generating api key";
+  const email = document.getElementById("exampleInputEmail2").value;
+  const newIdBox = document.getElementById("newIdBox");
+  const response = await fetch("/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+    }),
+  });
+
+  const data = await response.json();
+  const anchorTag1 = document.getElementById("firstEndpoint");
+  anchorTag1.href = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
+  anchorTag1.innerText = `https://hindi-jokes-api.onrender.com/jokes?api_key=${data.apiKey}`;
+
+  const anchorTag2 = document.getElementById("secondEndpoint");
+  anchorTag2.href = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
+  anchorTag2.innerText = `https://hindi-jokes-api.onrender.com/jokes/2?api_key=${data.apiKey}`;
+
+  submitNew.innerText = "Success !";
+  // also change the class of the button to btn-success
+  submitNew.classList.remove("btn-primary");
+  submitNew.classList.add("btn-success");
+  submitNew.disabled = true;
+
+  // console.log(data);
+
+  // remove the previous div if any
+  if (newIdBox.firstChild) {
+    newIdBox.removeChild(newIdBox.firstChild);
+  }
+
+  // create a new div
+  const div = document.createElement("div");
+  div.classList.add("card");
+  div.style.background = "cornsilk";
+  div.style.borderRadius = "20px";
+  div.style.boxShadow = "0 0 10px 0 rgba(0,0,0,0.2)";
+  div.style.marginTop = "20px";
+  div.innerHTML = `
     <div class="card-body ">
     <h4 class="text-center">Your Api Key</h4>
     <p class="card-text text-center">${data.apiKey}</p>
@@ -130,14 +123,55 @@ submitNew.addEventListener('click', async (e) => {
     </div>
     <p class="mx-3 mt-2"> Note : ${data.message} </p>
     </div> `;
-    newIdBox.appendChild(div);
-    // console.log(email);
-    // console.log(otp);
-    // change the text of submit button to generate api key
-    // submitNew.innerText = 'Success !';
-    // submitNew.disabled = true;
+  newIdBox.appendChild(div);
+  // console.log(email);
+  // console.log(otp);
+  // change the text of submit button to generate api key
+  // submitNew.innerText = 'Success !';
+  // submitNew.disabled = true;
 
+  // reset the form
+  document.getElementById("contact-form").reset();
+});
+
+const addJoke = document.getElementById("addJoke");
+const jokeVal23 = document.getElementById("joke");
+
+// console log the joke value
+addJoke.addEventListener("click", async (e) => {
+  e.preventDefault();
+  const jokeVal = jokeVal23.value;
+  // if the joke value is empty then return
+  if (jokeVal == "") {
+    alert("Please enter a joke");
+    return;
+  }
+  // trim the value
+  jokeVal.trim();
+  //   console.log(jokeVal);
+  const response = await fetch("/sampleData", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      jokeContent: jokeVal,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (data.status === "Success") {
+    addJoke.innerText = data.message;
+    addJoke.disabled = true;
+    addJoke.classList.remove("btn-primary");
+    addJoke.classList.add("btn-success");
     // reset the form
-    document.getElementById('contact-form').reset();
-})
-
+    e.target.reset();
+  } else if (data.status === "Joke already exist") {
+    addJoke.innerText = data.message;
+    addJoke.disabled = true;
+    addJoke.classList.remove("btn-primary");
+    addJoke.classList.add("btn-danger");
+  }
+});
